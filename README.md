@@ -1,14 +1,13 @@
-# 🔐 DocuWallet
+# 🔐 Lockfolio
 
 <div align="center">
 
-![DocuWallet Version](https://img.shields.io/badge/version-4.1.0-blue.svg)
+![Lockfolio Version](https://img.shields.io/badge/version-5.0.4-blue.svg)
 ![React Native](https://img.shields.io/badge/React%20Native-0.81.5-61DAFB.svg)
 ![Expo SDK](https://img.shields.io/badge/Expo-~54.0-000020.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS-lightgrey.svg)
+![Platform](https://img.shields.io/badge/platform-Android-lightgrey.svg)
 
-**A secure, offline-first document and credential manager with end-to-end encryption**
+**A secure, offline-first document and credential manager**
 
 </div>
 
@@ -16,92 +15,117 @@
 
 ## 📖 Overview
 
-DocuWallet is a privacy-focused mobile application that allows you to securely store, manage, and organize your sensitive documents and credentials. Built with a zero-knowledge architecture, your data never leaves your device unless you explicitly create an encrypted backup.
+Lockfolio is a privacy-first Android app for storing sensitive documents and credentials on your device. Data stays local unless you choose to create a password-protected backup or share a file.
+
+There is no account to create and no Lockfolio cloud backend. Everything is encrypted at rest: SQLCipher for the database, AES-256 for vault fields, and encrypted files for documents and note audio.
 
 ### 🎯 Key Highlights
 
-- **🔒 Military-Grade Encryption**: AES-256 encryption for all stored data
-- **🔐 Biometric Authentication**: Face ID, Touch ID, and fingerprint support
-- **📴 Offline-First**: Works completely offline - no internet required
-- **🗂️ Document Management**: Store ID cards, passports, licenses, and more
-- **🔑 Secure Vault**: Password manager for credentials, bank accounts, and sensitive notes
-- **📊 Smart Organization**: Categorize documents with custom types and tags
-- **💾 Encrypted Backups**: Create password-protected backups with SHA-256 integrity verification
-- **🌗 Dark Mode**: Beautiful adaptive UI with light and dark themes
+- **🔒 Encryption at Rest**: SQLCipher database, AES-256 vault fields, and encrypted document and note-audio files
+- **🔐 App Lock**: 6-digit PIN, optional biometrics, and a 12-word recovery key
+- **📴 Offline-First**: Core features work on the device, with no cloud sync
+- **🗂️ Documents**: Categories and slots, front and back files, search, and expiry tracking
+- **🔑 Secure Vault**: Notes, bank accounts, Wi-Fi, email, licenses, device credentials, and web shortcuts
+- **💾 Encrypted Backups**: Password-protected `.lockfolio` archives
+- **🌗 Themes**: Light, dark, or system
 
 ---
 
 ## ✨ Features
 
-### 📄 Document Storage
-- **Multiple Document Types**: Support for ID cards, passports, driver's licenses, insurance, medical records, and more
-- **File Attachments**: Attach PDF and images files to documents
-<!-- - **Expiry Tracking**: Get notified before documents expire -->
-- **Quick Search**: Fast full-text search across all documents
-<!-- - **Batch Operations**: Select and manage multiple documents at once -->
-- **PDF Generation**: Export vaults as pdf
+### 🏠 Home
+
+- Dashboard with expiry alerts, expiring documents, favorites, quick actions, recent files, and an overview
+- In-app notification inbox for document expiry
+
+### 📄 Documents
+
+- **Categories**: Identity, Civil, Tax, Health, Education, Employment, Housing, Finance, Vehicle, Legal, Travel, Business & Corporate, and Warranties & Receipts
+- **Slots**: Predefined document types in each category, plus a custom slot
+- **Front and back**: A required front file and an optional back file. JPG, PNG, or PDF, up to **10 MB** each, from the gallery, camera, files, or the Android document scanner
+- **Image edit**: Crop or rotate a photo before it is saved, preview a PDF in the picker, and swap front and back
+- **Metadata**: Title, holder name, document number, category, slot, and expiry date
+- **Search**: Find documents by title, holder, number, category, and slot, including voice search
+- **Expiry**: Expiring Soon and Expired lists, optional calendar reminders, and optional local alerts at 30 days, 7 days, and on the expiry day
+- **In-app viewer**: Pinch-zoom images or page through PDFs, and switch between front and back
+- **Share**: Share files directly, or export a selection as a password-protected ZIP (share the password separately)
+- **Statistics**: Counts by category, expiry status, and totals
 
 ### 🔐 Secure Vault
-Store sensitive information securely:
-- **Passwords & Logins**: Username, password, and security questions
-- **Bank Accounts**: Account numbers, IFSC/SWIFT codes, account holder details
-- **Credit Cards**: Card numbers, CVV, expiry dates (encrypted)
-- **Secure Notes**: Private notes and important information
-- **Wi-Fi Passwords**: Network credentials with security type
-- **Email Accounts**: Email credentials and recovery information
-- **Software Licenses**: License keys and activation codes
-- **Web Shortcuts**: Add your favorite web shortcuts
+
+Typed templates:
+
+- **Secure Note**: Private notes, voice dictation, and encrypted audio clips (up to 10)
+- **Bank Account**: Bank name, account number, IFSC/SWIFT, and holder details
+- **Wi-Fi**: Network name, password, and security type
+- **Email**: Address, password, provider, and recovery info
+- **Third-party Software**: Logins and license keys for apps and services
+- **Device Credentials**: Phone, laptop, and other device account details
+- **Software License**: License keys, expiry, and provider info
+- **Web Shortcut**: App and site shortcuts
+
+You can favorite items, filter by type, search, copy fields, and share item details. Vault contents can be exported to PDF after you unlock the app. That export leaves out web shortcuts.
 
 ### 🛡️ Security & Privacy
-- **Zero-Knowledge Architecture**: Your encryption key never leaves your device
-- **Biometric Lock**: Secure app access with Face ID, Touch ID, or fingerprint
-- **Auto-Lock**: Configurable timeout when app goes to background
-- **Failed Attempt Protection**: Temporary lockout after multiple failed authentications
-- **Secure Storage**: Encryption keys stored in device keychain/keystore
-- **No Cloud Dependency**: All data stored locally on your device
+
+- **6-digit PIN**, with optional biometric unlock
+- **12-word recovery key** to reset a forgotten PIN
+- **Lock and blur**: Lock on launch, lock again after a background timeout, and blur the screen while the app is in the background
+- **Failed-attempt lockout**: Temporary lock after repeated failed attempts
+- **Action unlock**: Optional extra prompts before view, edit, delete, and share
+- **On device**: Contents leave the phone only when you create a backup or share a file
+
+The PIN and recovery key are stored as salted hashes. The PIN is not kept in plaintext.
 
 ### 💾 Backup & Restore
-- **Encrypted Backups**: Password-protected backups with AES-256 encryption
-- **Data Integrity Verification**: SHA-256 checksums ensure backup/restore completeness
-- **Flexible Storage**: Save backups to any location using Storage Access Framework (Android 10+)
-- **Cross-Device Restore**: Restore your data on any device with your backup file and password
-- **Automatic File Handling**: Files are automatically included in backups and restored
 
-### 📊 Statistics & Insights
-- **Document Statistics**: Track total documents, expiring items, and categories
-- **Visual Overview**: Color-coded statistics for quick insights
-- **Expiry Management**: View and manage expired and expiring documents
-- **Vault Analytics**: Overview of secure items by type
+- Create a password-protected **`.lockfolio`** archive (password of at least 8 characters)
+- Current backups use the **v4** format. Older backup versions are not restored
+- The archive includes documents, vault items, front and back files, note audio, and the keys needed to reopen the vault
+- The backup password is stretched with **PBKDF2-SHA256** (100,000 iterations) and the archive is checked for integrity
+- Restore replaces the data already on the device after the archive is validated
+
+### ⚙️ Settings
+
+- Light, dark, or system theme
+- App lock, biometrics, change PIN, and regenerate the recovery key
+- Per-action unlock for view, edit, delete, and share
+- Expiry alerts on or off
+- Backup create and restore
+- Document and vault item counts
+- **Clear all data** after authentication and confirmation
 
 ---
 
 ## 🔒 Security
 
-DocuWallet implements multiple layers of security:
-
 ### Encryption
-- **AES-256-CBC**: Industry-standard encryption for all data
-- **Unique Master Key**: Generated on first launch, stored in secure hardware
-- **Per-Item Encryption**: Each document and vault item encrypted individually
-- **File Encryption**: Attached files encrypted before storage
+
+| Layer | What it protects |
+| ----- | ---------------- |
+| **SQLCipher** | The whole database at rest |
+| **AES-256-CBC** | Sensitive vault fields |
+| **AES-256-GCM** | Document files and secure-note audio |
+| **PBKDF2-SHA256 + AES-CBC** | The portable `.lockfolio` backup |
+| **Salted hash** | The app PIN and the recovery key |
+
+Master keys stay in device secure storage. They are not the same thing as your PIN.
 
 ### Authentication
-- **Biometric Authentication**: Support for Face ID, Touch ID, and fingerprint
-- **Device PIN/Password**: Fallback to device credentials
-- **Failed Attempt Lockout**: Temporary lockout after 5 failed attempts
-- **Session Management**: Configurable auto-lock on background
+
+- A 6-digit PIN you choose inside the app
+- Optional fingerprint or face unlock
+- A 12-word recovery phrase if you forget the PIN
+- A temporary lock after repeated failed attempts
+- Lock on launch and again after the app has been in the background
 
 ### Privacy
-- **Offline-First**: No internet connection required
-- **No Analytics**: Zero tracking or telemetry
-- **No Third-Party Services**: No external dependencies for core functionality
-- **Local Storage Only**: All data stored on device
 
-### Backup Security
-- **Password-Protected**: Backups encrypted with separate password
-- **Key Derivation**: PBKDF2 key derivation with salt
-- **Integrity Verification**: SHA-256 checksums verify data integrity
-- **Normalized Checksums**: File paths excluded from verification for portability
+- **Local-first**: Primary data lives on the device
+- **No account**: No sign-in and no Lockfolio cloud for core features
+- **You choose the export**: Backups and shares happen only when you create them
+- **Document scanning**: Optional Android scans use Google ML Kit on the device. Document contents are not uploaded to Google. ML Kit may still send diagnostic or usage metrics to Google
+- **Voice input**: Speech recognition may use an on-device model or a network connection, depending on the phone
 
 ---
 
@@ -120,49 +144,55 @@ DocuWallet implements multiple layers of security:
 ## 🚀 Getting Started (User Guide)
 
 ### First Launch
-1. **Security Setup**: Enable biometric authentication (recommended)
-2. **Master Key Generation**: App automatically generates encryption key
-3. **Grant Permissions**: Allow camera and storage access for full functionality
+
+1. Complete the short onboarding
+2. Set a **6-digit PIN** and store the **12-word recovery key** somewhere you can find later
+3. Turn on biometric unlock if you want it
+4. Allow camera, photos, microphone, notifications, or calendar access only for the features you use
 
 ### Adding Documents
-1. Tap **+** button on home screen
-2. Select document type (Identity, Vehicle, Health, etc.)
-3. Fill in details and attach files
-4. Save - all data is automatically encrypted
+
+1. Open **Documents** and add a document
+2. Choose a category and a slot (or a custom slot)
+3. Add a front file, and a back file if the document has one
+4. Enter the title, holder, number, and expiry date
+5. Save. The file is encrypted on the device
 
 ### Using Secure Vault
-1. Navigate to **Vault** tab
-2. Tap **+** to create new secure item
-3. Choose template (Wifi Credential, Email Account, Bank Account, etc.)
-4. Enter sensitive information
-5. Save - everything is encrypted immediately
+
+1. Open the **Vault** tab
+2. Create an item and choose a template (note, bank account, Wi-Fi, email, and so on)
+3. Enter the details
+4. Save. Vault fields are encrypted before they are stored
 
 ### Creating Backups
-1. Go to **Settings** → **Backup & Restore**
-2. Tap **Create Backup**
-3. Enter a strong backup password (min 8 characters)
-4. Choose save location
-5. Backup file (.docuwallet) is encrypted and verified
+
+1. Go to **Settings** and open backup
+2. Create a backup
+3. Enter a backup password of at least 8 characters
+4. Choose where to save the file
+5. Keep the `.lockfolio` file and its password. The app cannot recover a forgotten backup password
 
 ### Restoring Backups
-1. Go to **Settings** → **Backup & Restore**
-2. Tap **Restore from Backup**
-3. Select your .docuwallet file
-4. Enter backup password
-5. Confirm restore (existing data will be replaced)
-6. Data integrity is automatically verified
+
+1. Go to **Settings** and open restore
+2. Select a `.lockfolio` file from the current backup format
+3. Enter the backup password
+4. Confirm. Existing documents, vault items, and files on the device are replaced
 
 ---
 
 ## 🔐 Security Best Practices
 
 ### For Users
-- ✅ Enable biometric authentication
-- ✅ Use a strong backup password (different from device PIN)
-- ✅ Store backup files in a secure location
-- ✅ Regularly update your backups
-- ✅ Don't share your device while app is unlocked
-- ❌ Never share your backup password
+
+- ✅ Write down the 12-word recovery key and keep it offline
+- ✅ Turn on biometrics if this phone supports them
+- ✅ Use a backup password that is different from the app PIN
+- ✅ Store backup files somewhere you control
+- ✅ Share a ZIP password separately from the ZIP itself
+- ✅ Lock the app before handing the phone to someone else
+- ❌ Never share your backup password or recovery key
 
 <!-- ### For Developers
 - ✅ Never log sensitive data (even in development)
@@ -179,17 +209,19 @@ DocuWallet implements multiple layers of security:
 **Anuj Kulal**
 
 - GitHub: [@Anujkulal](https://github.com/Anujkulal)
-- Website: [docuwallet.netlify.app](https://docuwallet.netlify.app)
+- Website: [lockfolio.netlify.app](https://lockfolio.netlify.app)
+- Package: `com.anujkulal.lockfolio`
 
 ---
 
 ## ⚠️ Disclaimer
 
-DocuWallet is designed for personal use to securely store sensitive information. While the app implements industry-standard encryption and security practices, users are responsible for:
-- Creating strong backup passwords
-- Securing their device with PIN/biometric authentication
-- Safely storing backup files
-- Understanding the risks of digital data storage
+Lockfolio is designed for personal use to store sensitive information on your own device. The app encrypts data at rest and password-protects backups. You are responsible for:
+
+- Keeping the app PIN, recovery key, and backup password
+- Securing the phone itself
+- Storing backup files safely
+- Understanding the risks of keeping digital copies of sensitive documents
 
 **The developer is not responsible for any data loss, security breaches, or misuse of the application.**
 
@@ -198,7 +230,7 @@ DocuWallet is designed for personal use to securely store sensitive information.
 <!-- ## 📧 Support
 
 If you encounter any issues or have questions:
-- Open an issue on [GitHub Issues](https://github.com/Anujkulal/docuwallet-app-release/issues)
+- Open an issue on [GitHub Issues](https://github.com/Anujkulal/lockfolio-app-release/issues)
 - Check existing issues for solutions
 - Provide detailed information (device, OS version, steps to reproduce)
 
